@@ -1,4 +1,4 @@
-# ordering-system-spa
+# exam for appetiser
 
 ## Installation
 - `cp .env.example .env`
