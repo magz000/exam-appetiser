@@ -116,12 +116,12 @@
             <div class="col-md-8">
               <table class="table">
                 <template v-for="(date, index) in dates">
-                  <tr :key="'head' + index" v-if="index == 0">
-                    <th colspan="2">{{ date.month }} {{ date.year }}</th>
+                  <tr :key="'head' + index" v-if="index == 0 || date.month != dates[index-1].month">
+                    <th colspan="2"><h3>{{ date.month }} {{ date.year }}</h3></th>
                   </tr>
 
                   <tr :class="{'active': date.event}" :key="index">
-                    <td>{{ date.day }} {{ date.dayOfWeek }}</td>
+                    <td style="width: 150px;">{{ date.day }} {{ date.dayOfWeek }}</td>
                     <td>{{ date.event ? date.event.name : '' }}</td>
                   </tr>
                 </template>
@@ -191,6 +191,16 @@ export default {
         .endOf("month")
         .startOf("day");
 
+      if(this.event) {
+        currDate = moment(this.event.from)
+          .startOf("month")
+          .startOf("day");
+
+        lastDate = moment(this.event.to)
+          .endOf("month")
+          .startOf("day");
+      }
+
       do {
         var date = {
           dayOfWeek: currDate.clone().format("ddd"),
@@ -221,5 +231,9 @@ export default {
 <style scoped>
 tr.active {
   background-color: #80ED9A;
+}
+
+th {
+  font-weight: bold;
 }
 </style>

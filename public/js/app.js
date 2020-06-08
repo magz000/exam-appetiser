@@ -2144,6 +2144,11 @@ __webpack_require__.r(__webpack_exports__);
       var currDate = moment_timezone__WEBPACK_IMPORTED_MODULE_0___default()().startOf("month").startOf("day");
       var lastDate = moment_timezone__WEBPACK_IMPORTED_MODULE_0___default()().endOf("month").startOf("day");
 
+      if (this.event) {
+        currDate = moment_timezone__WEBPACK_IMPORTED_MODULE_0___default()(this.event.from).startOf("month").startOf("day");
+        lastDate = moment_timezone__WEBPACK_IMPORTED_MODULE_0___default()(this.event.to).endOf("month").startOf("day");
+      }
+
       do {
         var date = {
           dayOfWeek: currDate.clone().format("ddd"),
@@ -6611,7 +6616,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ntr.active[data-v-1710078a] {\r\n  background-color: #80ED9A;\n}\r\n", ""]);
+exports.push([module.i, "\ntr.active[data-v-1710078a] {\r\n  background-color: #80ED9A;\n}\nth[data-v-1710078a] {\r\n  font-weight: bold;\n}\r\n", ""]);
 
 // exports
 
@@ -63900,18 +63905,20 @@ var render = function() {
                 [
                   _vm._l(_vm.dates, function(date, index) {
                     return [
-                      index == 0
+                      index == 0 || date.month != _vm.dates[index - 1].month
                         ? _c("tr", { key: "head" + index }, [
                             _c("th", { attrs: { colspan: "2" } }, [
-                              _vm._v(
-                                _vm._s(date.month) + " " + _vm._s(date.year)
-                              )
+                              _c("h3", [
+                                _vm._v(
+                                  _vm._s(date.month) + " " + _vm._s(date.year)
+                                )
+                              ])
                             ])
                           ])
                         : _vm._e(),
                       _vm._v(" "),
                       _c("tr", { key: index, class: { active: date.event } }, [
-                        _c("td", [
+                        _c("td", { staticStyle: { width: "150px" } }, [
                           _vm._v(
                             _vm._s(date.day) + " " + _vm._s(date.dayOfWeek)
                           )
